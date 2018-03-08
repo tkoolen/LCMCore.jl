@@ -33,15 +33,20 @@ end
     @test LCMCore.basehash(lcm_test_type_1) == 0x6ac981fb91a46d8b
     @test LCMCore.basehash(lcm_test_type_3) == 0x394ce5f0e401c325
     @test LCMCore.basehash(lcm_test_type_2) == 0x5a53eae01a55d4cb
+    # TODO: polynomials
 
     # Check invertibility
     test_encode_decode(lcm_test_type_1)
     test_encode_decode(lcm_test_type_2)
     test_encode_decode(lcm_test_type_3)
+    test_encode_decode(polynomial_t)
+    test_encode_decode(polynomial_matrix_t)
 
     # Check that decoding types without `String`s doesn't allocate
     test_in_place_decode_noalloc(lcm_test_type_1)
     test_in_place_decode_noalloc(lcm_test_type_2)
+    test_in_place_decode_noalloc(polynomial_t)
+    test_in_place_decode_noalloc(polynomial_matrix_t)
 
     # Mismatch between length field and length of corresponding vector
     bad = rand(lcm_test_type_1)
@@ -61,4 +66,5 @@ end
     @test hard_coded_example(lcm_test_type_2) == decode(bytes, lcm_test_type_2)
     bytes = read(Pkg.dir("LCMCore", "test", "lcmtypes", "lcm_test_type_3_example_bytes"))
     @test hard_coded_example(lcm_test_type_3) == decode(bytes, lcm_test_type_3)
+    # TODO: polynomials
 end
